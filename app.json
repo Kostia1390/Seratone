@@ -1,4 +1,11 @@
 {
   "name": "Seratone",
-  "displayName": "Seratone"
+  "displayName": "Seratone",
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "c8531ac2-49b7-4a8f-a1d4-f17578f73948"
+      }
+    }
+  }
 }

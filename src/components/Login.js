@@ -1,6 +1,9 @@
+/* eslint-disable*/
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity, Keyboard, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SvgUri from 'react-native-svg-uri';
+import BigSvg from '../../Assets/Svg/BigLogo.svg'
 
 
 import checkLogin from '../api/checkLogin';
@@ -16,37 +19,36 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: '',
+            url: 'https://seratone.it/', 
             user: '',
             pass: '',
-        }
+        };
     }
+    
    
-    _validate(){
-        const{ url, user, pass} = this.state;
-        if( url == '' ){
-            alert( 'Enter Url ' );
+    _validate() {
+        const { user, pass } = this.state;
+    
+        if (user === '') {
+            alert('Enter User');
             return false;
         }
-
-        if( user == '' ){
-            alert( 'Enter User' );
+    
+        if (pass === '') {
+            alert('Enter Password');
             return false;
         }
-      
-        if( pass == '' ){
-            alert( 'Enter Password' );
-            return false;
-        }
+    
+        return true; 
     }
-
-    _onLogin = async() => {
-
-        this._validate();
-
-        const {navigate} = this.props.navigation;
-
-        const{ url, user, pass} = this.state;
+    
+    _onLogin = async () => {
+        if (!this._validate()) {
+            return;
+        }
+    
+        const { navigate } = this.props.navigation;
+        const { url, user, pass } = this.state;
         
 
         await LoginApi( url, user, pass )
@@ -82,19 +84,15 @@ class Login extends Component {
 
 
     render() {
-        const{ url, user, pass} = this.state;
+        const { user, pass } = this.state;
 
         return (
+            <View style={styles.MainWrapper}>
+                 <View style={styles.LogoWrapper}>
+            <SvgUri width="300" height="300" source={require('../../Assets/Svg/BigLogo.svg')} /> 
+            </View>
             <View style={styles.container}>
-
-                <TextInput
-                  style={styles.input}
-                  placeholder="WordPress Installtation URL"
-                  onChangeText={ url => this.setState({url})}
-                  autoCapitalize = 'none'
-                  value={url}
-                  placeholderTextColor="#666666"
-                />
+               
 
                 <TextInput
                   style={styles.input}
@@ -122,7 +120,12 @@ class Login extends Component {
                         Log In
                     </Text>
                 </TouchableOpacity>
+
+
                 
+                
+            </View>
+           
             </View>
         );
     }
@@ -131,12 +134,23 @@ class Login extends Component {
 
 
 const styles = StyleSheet.create({
+    MainWrapper:{
+       
+    backgroundColor: '#c0d6f1',
+    flex:1,
+},
+
+    LogoWrapper:{
+       
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
     container: {
-        flex: 1,
+       
         justifyContent: 'center',
         alignItems: 'center',
         padding: 5,
-        backgroundColor: '#c0d6f1'
     },
     input: {
         height: 40, 
@@ -155,7 +169,8 @@ const styles = StyleSheet.create({
         borderColor: '#e86c60',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20
+        marginTop: 20,
+      
     },
     btn_text: {
         color: '#fff',

@@ -3,8 +3,6 @@ import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity, Keyboard, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SvgUri from 'react-native-svg-uri';
-import BigSvg from '../../Assets/Svg/BigLogo.svg'
-
 
 import checkLogin from '../api/checkLogin';
 import getToken from '../api/getToken';

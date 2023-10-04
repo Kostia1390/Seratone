@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity, Keyboard, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SvgUri from 'react-native-svg-uri';
+
 
 import checkLogin from '../api/checkLogin';
 import getToken from '../api/getToken';
@@ -17,37 +17,38 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: 'https://seratone.it/', 
+            url: '',
             user: '',
             pass: '',
-        };
+        }
     }
     
-   
-    _validate() {
-        const { user, pass } = this.state;
-    
-        if (user === '') {
-            alert('Enter User');
+    _validate(){
+        const{ url, user, pass} = this.state;
+        if( url == '' ){
+            alert( 'Enter Url ' );
+            return false;
+        }
+
+        if( user == '' ){
+            alert( 'Enter User' );
             return false;
         }
     
-        if (pass === '') {
+        if (pass == '') {
             alert('Enter Password');
             return false;
         }
     
-        return true; 
     }
     
-    _onLogin = async () => {
-        if (!this._validate()) {
-            return;
-        }
-    
-        const { navigate } = this.props.navigation;
-        const { url, user, pass } = this.state;
-        
+    _onLogin = async() => {
+
+        this._validate();
+
+        const {navigate} = this.props.navigation;
+
+        const{ url, user, pass} = this.state;        
 
         await LoginApi( url, user, pass )
         .then( (resjson) => {
@@ -82,15 +83,21 @@ class Login extends Component {
 
 
     render() {
-        const { user, pass } = this.state;
+        const{ url, user, pass} = this.state;
 
         return (
-            <View style={styles.MainWrapper}>
-                 <View style={styles.LogoWrapper}>
-            <SvgUri width="300" height="300" source={require('../../Assets/Svg/BigLogo.svg')} /> 
-            </View>
+            
             <View style={styles.container}>
                
+
+               <TextInput
+                  style={styles.input}
+                  placeholder="WordPress Installtation URL"
+                  onChangeText={ url => this.setState({url})}
+                  autoCapitalize = 'none'
+                  value={url}
+                  placeholderTextColor="#666666"
+                />
 
                 <TextInput
                   style={styles.input}
@@ -124,7 +131,7 @@ class Login extends Component {
                 
             </View>
            
-            </View>
+
         );
     }
 }
@@ -132,20 +139,10 @@ class Login extends Component {
 
 
 const styles = StyleSheet.create({
-    MainWrapper:{
-       
-    backgroundColor: '#c0d6f1',
-    flex:1,
-},
-
-    LogoWrapper:{
-       
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+   
 
     container: {
-       
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 5,

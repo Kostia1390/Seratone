@@ -17,39 +17,35 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: '',
+            url: 'https://seratone.it/', 
             user: '',
             pass: '',
         }
     }
     
-    _validate(){
-        const{ url, user, pass} = this.state;
-        if( url == '' ){
-            alert( 'Enter Url ' );
-            return false;
-        }
+    _validate() {
+        const { user, pass } = this.state;
 
-        if( user == '' ){
-            alert( 'Enter User' );
+        if (user === '') {
+            alert('Enter User');
             return false;
         }
     
-        if (pass == '') {
+        if (pass === '') {
             alert('Enter Password');
             return false;
         }
-    
+        return true; 
+
     }
     
-    _onLogin = async() => {
+    _onLogin = async () => {
+        if (!this._validate()) {
+            return;
+        }
 
-        this._validate();
-
-        const {navigate} = this.props.navigation;
-
-        const{ url, user, pass} = this.state;        
-
+        const { navigate } = this.props.navigation;
+        const { url, user, pass } = this.state;
         await LoginApi( url, user, pass )
         .then( (resjson) => {
          
@@ -83,21 +79,13 @@ class Login extends Component {
 
 
     render() {
-        const{ url, user, pass} = this.state;
+        const { user, pass } = this.state;
 
         return (
             
             <View style={styles.container}>
                
 
-               <TextInput
-                  style={styles.input}
-                  placeholder="WordPress Installtation URL"
-                  onChangeText={ url => this.setState({url})}
-                  autoCapitalize = 'none'
-                  value={url}
-                  placeholderTextColor="#666666"
-                />
 
                 <TextInput
                   style={styles.input}

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, FlatList, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, FlatList,Image, TouchableWithoutFeedback} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import seratonePhoto from '../../Assets/Svg/seratonePhoto.png'
+
 
 
 
@@ -81,6 +83,7 @@ class Events extends Component {
               keyExtractor={item => item.post_title}
 
             />
+                <Image source={seratonePhoto} style={styles.logoImage} />
 
           </View>
         )
@@ -123,7 +126,15 @@ const styles = StyleSheet.create({
       marginBottom: 30,
       padding: 15
 
-    }
+    },
+    logoImage: {
+      position: 'absolute',
+      bottom: 0,
+      width: '70%',
+      alignSelf:'center',
+      height: '15%',   
+      resizeMode: 'contain'
+  }
 });
 
 

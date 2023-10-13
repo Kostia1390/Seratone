@@ -1,7 +1,8 @@
 /* eslint-disable*/
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity, Keyboard, Alert} from 'react-native';
+import {StyleSheet, ScrollView, View,Image, Text, TextInput, TouchableOpacity, Keyboard, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import seratonePhoto from '../../Assets/Svg/seratonePhoto.png'
 
 
 import checkLogin from '../api/checkLogin';
@@ -114,6 +115,8 @@ class Login extends Component {
                     </Text>
                 </TouchableOpacity>
 
+                <Image source={seratonePhoto} style={styles.logoImage} />
+
 
                 
                 
@@ -127,13 +130,14 @@ class Login extends Component {
 
 
 const styles = StyleSheet.create({
-   
+
 
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 5,
+        backgroundColor: '#c0d6f1'
     },
     input: {
         height: 40, 
@@ -152,14 +156,22 @@ const styles = StyleSheet.create({
         borderColor: '#e86c60',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20,
-      
+        marginTop: 20
     },
     btn_text: {
         color: '#fff',
         fontSize: 16,
         borderRadius: 5
-    }
+    },
+    logoImage: {
+      position: 'absolute',
+      bottom: 0,
+      width: '70%',
+      alignSelf:'center',
+      height: '15%',   
+      resizeMode: 'contain'
+  }
+    
 
 });
 
